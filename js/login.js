@@ -36,7 +36,7 @@ async function postFormDataAsJson(url, formData) {
 
   if (response.ok) {
     sessionStorage.setItem("admin", true);
-    window.location.href = "bar-select.html";
+    window.location.href = "bar_select.html";
   } else {
     // vis tekst der fortæller at login er fejlet
   }
