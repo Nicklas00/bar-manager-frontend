@@ -1,11 +1,20 @@
 const url = "http://localhost:8080/api/bar";
 
-async function fetchBars(){
-  const bars = await fetch(url).then(res => res.json())
-  return bars;
-}
+async function loadBars(){
+  const DD = document.getElementById("DD");
 
-let bars = fetchBars();
-for (let i = 0; i < bars.length; i++){
-  alert(bars[i].barName);
+  await fetch(url).then(res => res.json()).then(bars => {
+    for (let i = 0; i < bars.length; i++){
+      DD.add(new Option(bars[i].barName, bars[i].id))
+    }
+
+  });
 }
+loadBars();
+
+
+
+
+
+
+
