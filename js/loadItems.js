@@ -1,8 +1,15 @@
 const url = "http://localhost:8080/api/item/bar/";
 
 async function loadItems(id){
+
   const table = document.getElementById("myTable");
 
+  // Remove all elements inside table
+  let child = table.lastElementChild;
+  while (child) {
+    table.removeChild(child);
+    child = table.lastElementChild;
+  }
 
   await fetch(url + id).then(res => res.json()).then(items => {
     for (let i = 0; i < items.length; i++){
@@ -13,7 +20,10 @@ async function loadItems(id){
                 "</tr>";
       table.innerHTML += row;
     }
-
   });
 }
-loadItems(1);
+
+
+
+
+

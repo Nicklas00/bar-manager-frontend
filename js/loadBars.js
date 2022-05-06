@@ -9,8 +9,14 @@ async function loadBars(){
     }
 
   });
+
+  let select = document.getElementById("dropdownMenuButton");
+  let id = select.options[select.selectedIndex].value;
+  await loadItems(id);
+
 }
 loadBars();
+
 
 
 
