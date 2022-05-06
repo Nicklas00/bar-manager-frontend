@@ -1,3 +1,6 @@
+ html{
+   height: 100%;
+ }
 :root {
   --background: white;
   --fontcolor: black;
@@ -8,14 +11,20 @@ body{
   font-family: Arial;
   background-color: var(--background);
   color: var(--fontcolor);
+  height: 100%;
 }
 
 .container1 {
   margin: auto;
-  width: 60%;
+  width: 80%;
   text-align: center;
   float: right;
+  height: 100%;
 
+}
+
+.nav-test {
+  position:relative;
 }
 
 .login-box {
@@ -28,7 +37,7 @@ body{
 }
 
 .drop-down{
-  margin-left: 1%;
+  margin-left: 0%;
 }
 
 .logout-btn{
