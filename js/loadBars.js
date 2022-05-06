@@ -10,7 +10,7 @@ async function loadBars(){
 
   });
 }
-loadBars();
+await loadBars();
 
 
 
