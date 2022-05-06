@@ -3,6 +3,7 @@ const url = "http://localhost:8080/api/item/bar/";
 async function loadItems(id){
   const table = document.getElementById("myTable");
 
+
   await fetch(url + id).then(res => res.json()).then(items => {
     for (let i = 0; i < items.length; i++){
       let row = "<tr>" +
