@@ -10,10 +10,12 @@ body{
   color: var(--fontcolor);
 }
 
-.container {
+.container1 {
   margin: auto;
-  width: 75%;
+  width: 60%;
   text-align: center;
+  float: right;
+
 }
 
 .login-box {
@@ -23,4 +25,12 @@ body{
 .bar-list {
   list-style-type: none;
   text-decoration: none;
+}
+
+.drop-down{
+  margin-left: 1%;
+}
+
+.logout-btn{
+  margin-right: 1%;
 }
