@@ -13,12 +13,12 @@ const submitBtn = document.getElementById("submit");
 const deleteButton = document.createElement("button");
 
 function addItem() {
-  setMethod("post");
+  setMethod("POST");
   setTitle("Add item");
-  setFormDestination("http://localhost:8080/api/items", "post");
+  setFormDestination("http://localhost:8080/api/items");
   createInput("Item Name", "Name", "itemName", "text", "");
   createInput("Amount", "", "amountNo", "number", "");
-  createDropdownInput("http://localhost:8080/api/types", "Type", "type");
+  createDropdownInput("http://localhost:8080/api/types", "Type", "type").then(console.log);
 
   setupSubmitButton();
 
@@ -34,9 +34,9 @@ function setMethod(method) {
   this.method = method;
 }
 
-function setFormDestination(action, method) {
+function setFormDestination(action) {
   form.setAttribute("action", action);
-  form.setAttribute("method", method);
+  form.setAttribute("method", this.method);
 }
 
 function createInput(inputName, placeHolder, idName, type, value) {
@@ -93,7 +93,6 @@ function clearModal() {
   modalTitle.textContent = "";
   deleteButton.remove();
 
-
   form.reset();
 
   while (modalInputField.hasChildNodes()) {
@@ -139,9 +138,7 @@ async function fetchEntities(url) {
 }
 
 function createFormEventListener() {
-
   form.addEventListener("submit", handleFormSubmit);
-  //alert(form.getAttribute("movie"));
 }
 
 async function handleFormSubmit(event) {
@@ -163,10 +160,10 @@ async function postFormDataAsJson(url, formData) {
   let formDataJsonString;
 
   let select = document.getElementById("dropdownMenuButton");
-  let barId = select.options[select.selectedIndex].value;
-  let amountNo = document.getElementById("amountNo").value;
-  let itemName = document.getElementById("itemName").value;
-  let typeId = document.getElementById("type").value;
+  let barId  = select.options[select.selectedIndex].value;
+  let amountNo = formData.get("amountNo");
+  let itemName = formData.get("itemName");
+  let typeId   = formData.get("type");
 
   const item = {};
   item.itemName = itemName;
@@ -179,24 +176,13 @@ async function postFormDataAsJson(url, formData) {
   formDataJsonString = JSON.stringify(item);
 
 
-
-  alert(formDataJsonString);
-  alert(method);
-
   const fetchOptions = {
-    method: this.method,
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: formDataJsonString
   };
 
-  const response = await fetch(url, fetchOptions);
-
-  if (!response) {
-    const errorMessage = await response.text();
-    throw new Error(errorMessage);
-  }
-
-  return response.json();
+  await fetch(url, fetchOptions);
 }
