@@ -134,7 +134,7 @@ function deleteEntity(url) {
   return fetch(url, fetchOptions);
 }
 
-function fetchEntities(url) {
+async function fetchEntities(url) {
   return fetch(url).then(response => response.json());
 }
 

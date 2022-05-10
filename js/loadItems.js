@@ -35,7 +35,7 @@ async function deleteById(id){
     },
   };
   location.reload();
-  return fetch(url, fetchOptions);
+  return await fetch(url, fetchOptions);
 
 }
 
