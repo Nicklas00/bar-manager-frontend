@@ -2,6 +2,9 @@ const url = "http://localhost:8080/api/items/bar/";
 
 async function loadItems(id){
 
+
+  localStorage.setItem("barId", JSON.stringify(id));
+
   const table = document.getElementById("myTable");
 
   // Remove all elements inside table
