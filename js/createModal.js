@@ -8,7 +8,6 @@ let modalInputField = document.querySelector(".modal-input-field");
 let form = document.querySelector(".modal-input-field");
 
 let method = "";
-let showForm = false;
 const submitBtn = document.getElementById("submit");
 const deleteButton = document.createElement("button");
 
@@ -22,7 +21,6 @@ function addItem() {
 
   setupSubmitButton();
 
-  showForm = true;
   openModal();
 }
 
@@ -49,6 +47,7 @@ function createInput(inputName, placeHolder, idName, type, value) {
   input.name = idName;
   input.type = type;
   input.placeholder = placeHolder;
+  input.setAttribute("required", "");
   if (value !== undefined) {
     input.value = value;
   }
@@ -76,9 +75,7 @@ async function createDropdownInput(url, inputName, idName) {
 
   form.appendChild(title);
   form.appendChild(select);
-
 }
-
 
 function openModal() {
   overlay.style.display = "block";
@@ -98,22 +95,6 @@ function clearModal() {
   while (modalInputField.hasChildNodes()) {
     modalInputField.removeChild(modalInputField.firstChild);
   }
-}
-
-function createDeleteButton(url) {
-  const modalFooter = document.querySelector(".modal-footer")
-
-  deleteButton.id = "delete";
-  deleteButton.className = "btn btn-danger remove";
-  deleteButton.textContent = "Delete";
-
-  modalFooter.appendChild(deleteButton);
-
-  deleteButton.addEventListener("click", async () => {
-
-    await deleteEntity(url);
-    await location.reload();
-  });
 }
 
 function setupSubmitButton() {
