@@ -14,7 +14,7 @@ body{
   height: 100%;
 }
 
-.container1 {
+.container-table {
   margin: auto;
   width: 80%;
   text-align: center;
@@ -22,7 +22,11 @@ body{
   height: 100%;
 
 }
-
+ .container-login{
+   margin: auto;
+   width: 80%;
+   text-align: center;
+ }
 .nav-test {
   position:relative;
 }
@@ -41,5 +45,14 @@ body{
 }
 
 .logout-btn{
+  margin-right: 1%;
+}
+
+.btn-update{
+  float:left;
+  margin-left: 1%;
+}
+.btn-add{
+  float:right;
   margin-right: 1%;
 }
