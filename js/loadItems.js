@@ -39,20 +39,7 @@ async function deleteById(id){
 
 }
 
-/*function updateItems(){
-  let colCount = 3
-  cell = row.insertCell(colCount);
-  const pbUpdate = document.createElement("input");
-  pbUpdate.type = "button";
-  pbUpdate.setAttribute('value', 'Opdate storage');
-  pbUpdate.onclick = function () {
-    updateRow(amount_no, , rowCount, row, inp, length, description, releasedate, imagelink);
-  }
-  cell.appendChild(pbUpdate);
 
-}
-
- */
 
 
 
