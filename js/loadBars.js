@@ -1,4 +1,4 @@
-const barUrl = "http://localhost:8080/api/bar";
+const barUrl = "http://localhost:8080/api/bars";
 
 async function loadBars(){
   const DD = document.getElementById("dropdownMenuButton");
