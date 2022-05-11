@@ -39,8 +39,27 @@ async function deleteById(id){
 
 async function search() {
   const input = document.getElementById("search")
-  const url = "http://localhost:8080/api/items" + "?keyword=" + input.value + "&barId=" + JSON.parse(localStorage.getItem("barId"));
+  let select = document.getElementById("dropdown-type");
+  let typeId  = select.options[select.selectedIndex].value;
+  let barId = JSON.parse(localStorage.getItem("barId"));
+  let url;
+  if (isEmpty(input.value) && typeId==0){
+    url= "http://localhost:8080/api/items/bar/" + barId;
+  }
+  else if (!isEmpty(input.value) && typeId==0){
+    url = "http://localhost:8080/api/items" + "?keyword=" + input.value + "&barId=" + barId
+  }
+  else if (isEmpty(input.value) && !typeId==0){
+    url = "http://localhost:8080/api/items" + "?barId=" + barId + "&typeId=" + typeId;
+  }
+  else {
+    url = "http://localhost:8080/api/items" + "?keyword=" + input.value + "&barId=" + barId + "&typeId=" + typeId;
+  }
+
   loadItems(url);
+}
+function isEmpty (str){
+  return !str.trim().length;
 }
 
 

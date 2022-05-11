@@ -1,4 +1,5 @@
 const barUrl = "http://localhost:8080/api/bars";
+const typeUrl = "http://localhost:8080/api/types"
 let index = 0;
 
 async function loadBars(){
@@ -19,8 +20,19 @@ async function loadBars(){
     loadItems2(JSON.parse(barId));
   });
 }
-loadBars().then(console.log);
+async function loadTypes (){
+  const DD = document.getElementById("dropdown-type");
 
+
+  await fetch(typeUrl).then(res => res.json()).then(types => {
+    for (let i = 0; i < types.length; i++){
+      DD.add(new Option(types[i].typeName, types[i].id))
+    }
+
+  });
+}
+loadBars().then(console.log);
+loadTypes();
 
 
 
