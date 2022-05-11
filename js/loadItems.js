@@ -33,6 +33,13 @@ async function deleteById(id){
   location.reload();
 }
 
+async function search() {
+  const input = document.getElementById("search")
+  const url = "http://localhost:8080/api/items" + "?keyword=" + input.value;
+  let res = await fetch(url).then(j => j.json()).then(alert);
+
+}
+
 
 
 
