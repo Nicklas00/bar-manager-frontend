@@ -8,20 +8,18 @@ let modalInputField1 = document.querySelector(".modal-input-field");
 let form1 = document.querySelector(".modal-input-field");
 
 let method1 = "";
-let showForm1 = false;
 const submitBtn = document.getElementById("submit");
 const deleteButton = document.createElement("button");
 
 function addSale() {
   setMethod("post");
-  setTitle("Add Sale");
+ /* setTitle("Add Sale");
   setFormDestination("http://localhost:8080/api/sales", "post");
   createInput("Date", "Date", "saleDate", "date", "");
   createInput("Sale Number", "Revenue", "totalPrice", "number", "");
+*/
+  setupSubmitButton1();
 
-  setupSubmitButton();
-
-  showForm1 = true;
   openModal();
 }
 
@@ -59,21 +57,21 @@ function createInput(inputName, placeHolder, idName, type, value) {
 }
 
 async function createDropdownInput(url, inputName, idName) {
-  const title = document.createElement("p");
-  const text = document.createTextNode(inputName);
-  title.appendChild(text);
+  const title1 = document.createElement("p");
+  const text1 = document.createTextNode(inputName);
+  title1.appendChild(text);
 
-  const entities = await fetchEntities(url);
-  const select = document.createElement("select");
-  select.id = idName;
-  select.name = idName;
+  const entities1 = await fetchEntities(url);
+  const select1 = document.createElement("select");
+  select1.id = idName;
+  select1.name = idName;
 
-  for (let i = 0; i < entities.length; i++) {
-    let entity = entities[i];
-    select.add(new Option(entity.typeName, entity.id));
+  for (let i = 0; i < entities1.length; i++) {
+    let entity = entities1[i];
+    select1.add(new Option(entity1.typeName, entity.id));
   }
 
-  form1.appendChild(title);
+  form1.appendChild(title1);
   form1.appendChild(select);
 
 }
@@ -100,7 +98,7 @@ function clearModal() {
   }
 }
 
-function createDeleteButton(url) {
+function createDeleteButton1(url) {
   const modalFooter = document.querySelector(".modal-footer")
 
   deleteButton.id = "delete";
@@ -116,7 +114,7 @@ function createDeleteButton(url) {
   });
 }
 
-function setupSubmitButton() {
+function setupSubmitButton1() {
   submitBtn.addEventListener("click", async () => {
     await createFormEventListener();
     await location.reload();

@@ -3,7 +3,7 @@ const url = "http://localhost:8080/api/sales/bar/";
 
 
 async function loadSales(id){
-
+  alert(id)
   const table = document.getElementById("myTable");
 
   // Remove all elements inside table
