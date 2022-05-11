@@ -100,7 +100,6 @@ function clearModal() {
 function setupSubmitButton() {
   submitBtn.addEventListener("click", async () => {
     await createFormEventListener();
-    await location.reload();
   });
 }
 
@@ -165,5 +164,11 @@ async function postFormDataAsJson(url, formData) {
     body: formDataJsonString
   };
 
-  await fetch(url, fetchOptions);
+  let res = await fetch(url, fetchOptions);
+
+  if (res.ok) {
+    location.reload();
+  } else {
+    alert("error");
+  }
 }
