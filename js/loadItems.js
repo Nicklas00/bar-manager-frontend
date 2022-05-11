@@ -25,6 +25,29 @@ let items = await getItems(url);
       table.innerHTML += row;
   }
 }
+async function loadItemsSale(url){
+  let items = await getItems(url);
+
+  const table = document.getElementById("myTable");
+
+  // Remove all elements inside table
+  let child = table.lastElementChild;
+  while (child) {
+    table.removeChild(child);
+    child = table.lastElementChild;
+  }
+
+  for (let i = 0; i < items.length; i++){
+    let row = "<tr>" +
+      "<td>" + items[i].itemName + "</td>" +
+      "<td>" + items[i].type.typeName + "</td>" +
+      "<td>" + items[i].amountNo + "</td>" +
+      "<td><input type='number'> </td>" +
+      "<td><button class='btn btn-outline-danger' id='delete-btn' onclick='deleteById(" + items[i].id + ")'>Delete</button></td>"
+    "</tr>";
+    table.innerHTML += row;
+  }
+}
 
 function loadItems2(id){
   localStorage.setItem("barId", JSON.stringify(id));
