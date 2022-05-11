@@ -16,7 +16,7 @@ async function loadBars(){
     }
 
     DD.selectedIndex = index;
-    loadItems(JSON.parse(barId));
+    loadItems2(JSON.parse(barId));
   });
 }
 loadBars().then(console.log);
