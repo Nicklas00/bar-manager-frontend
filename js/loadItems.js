@@ -19,13 +19,16 @@ let items = await getItems(url);
       let row = "<tr>" +
                   "<td>" + items[i].itemName + "</td>" +
                   "<td>" + items[i].type.typeName + "</td>" +
-                  "<td><input value='" + items[i].amountNo + "'/></td>" +
+                  "<td><input value='" + items[i].amountNo + "' onchange='updateInput(this.value)'id='test'/></td>" +
                   "<td><button class='btn btn-outline-danger' id='delete-btn' onclick='deleteById(" + items[i].id + ")'>Delete</button></td>"
                 "</tr>";
       table.innerHTML += row;
   }
 }
-
+function updateInput(input){
+  document.getElementById("test").value=input;
+  alert(input);
+}
 function loadItems2(id){
   localStorage.setItem("barId", JSON.stringify(id));
   loadItems(url + id);
@@ -60,6 +63,17 @@ async function search() {
 }
 function isEmpty (str){
   return !str.trim().length;
+}
+
+function updateItems(){
+  const putUrl = "http://localhost:8080/api/items/";
+  let barId = JSON.parse(localStorage.getItem("barId"));
+  let table = document.getElementById("myTable");
+  for (let i in table.rows){
+    let row = table.rows[i];
+    alert(row.cells[2].innerHTML)
+  }
+  let items =  {};
 }
 
 
