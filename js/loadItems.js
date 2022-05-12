@@ -122,8 +122,8 @@ async function updateItems() {
 
 async function createSale() {
   const putUrl = "http://localhost:8080/api/items";
-
-  const saleUrl = "http://localhost:8080/api/sales"
+  const saleUrl = "http://localhost:8080/api/sales";
+  const saleLineUrl = "http://localhost:8080/api/sale-line-items"
 
   let price = document.getElementById("total-price").value;
   let date = new Date();
@@ -142,16 +142,38 @@ async function createSale() {
     body: JSON.stringify(sale)
   };
 
-  await fetch(saleUrl, fetchOptions);
+  let response = await fetch(saleUrl, fetchOptions);//.then(res => (res.json())).then(data => console.log(JSON.stringify(data)));
+  let saleJson = await response.json();
+  let savedSale = saleJson;
 
   let items = JSON.parse(localStorage.getItem("items"));
 
+  //alert(savedSale)
+  alert(items.length);
   let table = document.getElementById("myTable");
+  //alert(JSON.stringify(savedSale));
   for (let i in table.rows) {
     let row = table.rows[i];
-    let amount = row.cells[3].children[0].value
+    let amount = row.cells[3].children[0].value;
 
-    if (amount > 0) {
+    //if (amount > 0) {
+
+      let saleLineItem = {};
+
+      saleLineItem.amountNo = amount;
+      saleLineItem.item = items[i];
+      saleLineItem.sale = savedSale;
+
+      fetchOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(saleLineItem)
+      };
+      await fetch(saleLineUrl, fetchOptions);
+
+
       items[i].amountNo = items[i].amountNo - amount;
       fetchOptions = {
         method: "PUT",
@@ -161,7 +183,7 @@ async function createSale() {
         body: JSON.stringify(items[i])
       };
       await fetch(putUrl, fetchOptions);
-    }
+    //}
     localStorage.setItem("items", JSON.stringify(items));
   }
 
