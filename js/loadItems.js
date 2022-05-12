@@ -53,6 +53,10 @@ function loadItems2(id){
   localStorage.setItem("barId", JSON.stringify(id));
   loadItems(url + id);
 }
+function loadItems3(id){
+  localStorage.setItem("barId", JSON.stringify(id));
+  loadItemsSale(url + id);
+}
 
 async function deleteById(id){
   const url = "http://localhost:8080/api/items/" + id;
