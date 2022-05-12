@@ -44,8 +44,7 @@ async function loadItemsSale(url){
       "<td>" + items[i].itemName + "</td>" +
       "<td>" + items[i].type.typeName + "</td>" +
       "<td>" + items[i].amountNo + "</td>" +
-      "<td><input type='number'> </td>" +
-      "<td><button class='btn btn-outline-danger' id='delete-btn' onclick='deleteById(" + items[i].id + ")'>Delete</button></td>"
+      "<td><input type='number' min='0' max='"+ items[i].amountNo + "'> </td>"
     "</tr>";
     table.innerHTML += row;
   }
@@ -119,6 +118,53 @@ async function updateItems() {
       await fetch(putUrl, fetchOptions);
     }
   }
+}
+
+async function createSale() {
+  const putUrl = "http://localhost:8080/api/items";
+
+  const saleUrl = "http://localhost:8080/api/sales"
+
+  let price = document.getElementById("total-price").value;
+  let date = new Date();
+
+  let sale = {};
+
+  sale.totalPrice = price;
+  sale.saleDate = date;
+  //alert(JSON.stringify(sale));
+
+  let fetchOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(sale)
+  };
+
+  await fetch(saleUrl, fetchOptions);
+
+  let items = JSON.parse(localStorage.getItem("items"));
+
+  let table = document.getElementById("myTable");
+  for (let i in table.rows) {
+    let row = table.rows[i];
+    let amount = row.cells[3].children[0].value
+
+    if (amount > 0) {
+      items[i].amountNo = items[i].amountNo - amount;
+      fetchOptions = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(items[i])
+      };
+      await fetch(putUrl, fetchOptions);
+    }
+    localStorage.setItem("items", JSON.stringify(items));
+  }
+
 }
 
 
