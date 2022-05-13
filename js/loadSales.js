@@ -1,1 +1,1 @@
-loadItems3(JSON.parse(localStorage.getItem("barId")));
+loadItems3(JSON.parse(localStorage.getItem("barId"))).then(console.log);

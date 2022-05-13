@@ -30,7 +30,7 @@ async function loadTypes (){
   });
 }
 loadBars().then(console.log);
-loadTypes();
+loadTypes().then(console.log);
 
 
 
