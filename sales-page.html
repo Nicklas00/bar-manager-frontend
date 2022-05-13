@@ -9,6 +9,7 @@
   <script src="js/loadBars.js" defer></script>
   <script src="js/loadItems.js" defer></script>
   <script src="js/createModal.js" defer></script>
+  <script src="js/loadSales.js" defer></script>
 
 </head>
 <body>
@@ -17,38 +18,32 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 20%; float: left; height: 100%"  >
   <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
     <svg class="bi me-2" width="40" height="32"><use href="#bootstrap"></use></svg>
-    <span class="fs-4">Sidebar</span>
+    <span class="fs-4">Bar manager</span>
   </a>
   <hr>
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
-      <a href="#" class="nav-link active" aria-current="page">
+      <a href="storage-page.html" class="nav-link text-white" aria-current="page">
         <svg class="bi me-2" width="16" height="16"><use href="#home"></use></svg>
-        Home
+        Storage
       </a>
     </li>
     <li>
-      <a href="#" class="nav-link text-white">
+      <a href="sales-page.html" class="nav-link active">
         <svg class="bi me-2" width="16" height="16"><use href="#speedometer2"></use></svg>
-        Dashboard
+        Sales
       </a>
     </li>
     <li>
-      <a href="#" class="nav-link text-white">
+      <a href="statistics-page.html" class="nav-link text-white">
         <svg class="bi me-2" width="16" height="16"><use href="#table"></use></svg>
-        Orders
+        Statistics
       </a>
     </li>
     <li>
-      <a href="#" class="nav-link text-white">
+      <a href="admin-page.html" class="nav-link text-white">
         <svg class="bi me-2" width="16" height="16"><use href="#grid"></use></svg>
-        Products
-      </a>
-    </li>
-    <li>
-      <a href="#" class="nav-link text-white">
-        <svg class="bi me-2" width="16" height="16"><use href="#people-circle"></use></svg>
-        Customers
+        Admin
       </a>
     </li>
   </ul>
@@ -58,14 +53,14 @@
 <div class="container-table">
   <nav class="navbar navbar-dark bg-dark">
 
-    <select onchange="loadItems2(this.value)" class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
+    <select onchange="loadItems3(this.value)" class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
     </select>
 
     <button class="logout-btn btn btn-outline-light" >logout</button>
     <!-- Navbar content -->
   </nav>
-    <input id="search" name="search" type="text">
-    <button onclick="search()">Search</button>
+  <input id="search" name="search" type="text">
+  <button onclick="search()">Search</button>
   <select class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdown-type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
     <option value="0"></option>
   </select>
@@ -76,7 +71,7 @@
       <th scope="col">Item</th>
       <th scope="col">Type</th>
       <th scope="col">Amount</th>
-      <th scope="col">Delete</th>
+      <th scope="col">Sale</th>
     </tr>
     </thead >
 
@@ -101,8 +96,8 @@
     </div>
   </div>
 
-<button id="item-update-btn" class="btn btn-outline-dark btn-update" onclick="updateItems()">Update all items</button>
-  <button id="item-add-btn" class="btn btn-outline-dark btn-add" onclick="addItem()">Add Item</button>
+  <button id="create-sale" class="btn btn-outline-dark btn-update" onclick="createSale()">Create Sale</button>
+  <input id="total-price" type="number" step=".01" class="tot-price">
 </div>
 
 </body>

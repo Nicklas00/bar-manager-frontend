@@ -17,22 +17,51 @@ async function loadItems(url){
 
   for (let i = 0; i < items.length; i++){
     let row = "<tr>" +
-                "<td>" + items[i].itemName + "</td>" +
-                "<td>" + items[i].type.typeName + "</td>" +
-                "<td><input value='" + items[i].amountNo + "' onchange='updateInput(this.value, "+i+")' id='test"+i+"'/></td>" +
-                "<td><button class='btn btn-outline-danger' id='delete-btn' onclick='deleteById(" + items[i].id + ")'>Delete</button></td>"
-              "</tr>";
+      "<td>" + items[i].itemName + "</td>" +
+      "<td>" + items[i].type.typeName + "</td>" +
+      "<td><input value='" + items[i].amountNo + "' onchange='updateInput(this.value, "+i+")' id='test"+i+"'/></td>" +
+      "<td><button class='btn btn-outline-danger' id='delete-btn' onclick='deleteById(" + items[i].id + ")'>Delete</button></td>"
+    "</tr>";
     table.innerHTML += row;
   }
-    localStorage.setItem("items", JSON.stringify(items));
+  localStorage.setItem("items", JSON.stringify(items));
 }
+
+async function loadItemsSale(url){
+  let items = await getItems(url);
+
+  const table = document.getElementById("myTable");
+
+  // Remove all elements inside table
+  let child = table.lastElementChild;
+  while (child) {
+    table.removeChild(child);
+    child = table.lastElementChild;
+  }
+
+  for (let i = 0; i < items.length; i++){
+    let row = "<tr>" +
+      "<td>" + items[i].itemName + "</td>" +
+      "<td>" + items[i].type.typeName + "</td>" +
+      "<td>" + items[i].amountNo + "</td>" +
+      "<td><input type='number' min='0' max='"+ items[i].amountNo + "'> </td>"
+    "</tr>";
+    table.innerHTML += row;
+  }
+}
+
 function updateInput(input, i){
   let id = "test" + i;
   document.getElementById(id).setAttribute('value',input);
 }
-async function loadItems2(id) {
+
+function loadItems2(id){
   localStorage.setItem("barId", JSON.stringify(id));
-  await loadItems(url + id);
+  loadItems(url + id);
+}
+function loadItems3(id){
+  localStorage.setItem("barId", JSON.stringify(id));
+  loadItemsSale(url + id);
 }
 
 async function deleteById(id){
@@ -60,7 +89,7 @@ async function search() {
     url = "http://localhost:8080/api/items" + "?keyword=" + input.value + "&barId=" + barId + "&typeId=" + typeId;
   }
 
-  await loadItems(url);
+  loadItems(url);
 }
 function isEmpty (str){
   return !str.trim().length;
@@ -89,6 +118,75 @@ async function updateItems() {
       await fetch(putUrl, fetchOptions);
     }
   }
+}
+
+async function createSale() {
+  const putUrl = "http://localhost:8080/api/items";
+  const saleUrl = "http://localhost:8080/api/sales";
+  const saleLineUrl = "http://localhost:8080/api/sale-line-items"
+
+  let price = document.getElementById("total-price").value;
+  let date = new Date();
+
+  let sale = {};
+
+  sale.totalPrice = price;
+  sale.saleDate = date;
+  //alert(JSON.stringify(sale));
+
+  let fetchOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(sale)
+  };
+
+  let response = await fetch(saleUrl, fetchOptions);//.then(res => (res.json())).then(data => console.log(JSON.stringify(data)));
+  let saleJson = await response.json();
+  let savedSale = saleJson;
+
+  let items = JSON.parse(localStorage.getItem("items"));
+
+  //alert(savedSale)
+  alert(items.length);
+  let table = document.getElementById("myTable");
+  //alert(JSON.stringify(savedSale));
+  for (let i in table.rows) {
+    let row = table.rows[i];
+    let amount = row.cells[3].children[0].value;
+
+    //if (amount > 0) {
+
+      let saleLineItem = {};
+
+      saleLineItem.amountNo = amount;
+      saleLineItem.item = items[i];
+      saleLineItem.sale = savedSale;
+
+      fetchOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(saleLineItem)
+      };
+      await fetch(saleLineUrl, fetchOptions);
+
+
+      items[i].amountNo = items[i].amountNo - amount;
+      fetchOptions = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(items[i])
+      };
+      await fetch(putUrl, fetchOptions);
+    //}
+    localStorage.setItem("items", JSON.stringify(items));
+  }
+
 }
 
 

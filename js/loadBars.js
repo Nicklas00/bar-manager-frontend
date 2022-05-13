@@ -6,7 +6,6 @@ async function loadBars(){
   const DD = document.getElementById("dropdownMenuButton");
   let barId = JSON.parse(window.localStorage.getItem("barId"));
 
-
   await fetch(barUrl).then(res => res.json()).then(bars => {
     for (let i = 0; i < bars.length; i++){
       if (bars[i].id == barId) {
@@ -17,7 +16,6 @@ async function loadBars(){
     }
 
     DD.selectedIndex = index;
-    loadItems2(JSON.parse(barId));
   });
 }
 async function loadTypes (){
