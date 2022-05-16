@@ -134,12 +134,14 @@ async function updateItems() {
 }
 
 async function createSale() {
-  let price = document.getElementById("total-price").value;
+  let incoPrice = document.getElementById("inco-total").value;
+  let tuborgPrice = document.getElementById("tuborg-total").value;
   let date = new Date();
 
   // create sale object to send to db
   let sale = {};
-  sale.totalPrice = price;
+  sale.incoTotal = incoPrice;
+  sale.tuborgTotal = tuborgPrice;
   sale.saleDate = date;
 
   // save sale in db. returns the saved sale, which we need for the salelineitem
