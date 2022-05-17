@@ -10,6 +10,7 @@
   <script src="../js/loadItems.js" defer></script>
   <script src="../js/createModal.js" defer></script>
   <script src="../js/loadSales.js" defer></script>
+  <script src="../js/crud.js" defer></script>
 
 </head>
 <body>
@@ -38,6 +39,12 @@
       <a href="sales.html" class="nav-link text-white">
         <svg class="bi me-2" width="16" height="16"><use href="#table"></use></svg>
         Sales
+      </a>
+    </li>
+    <li>
+      <a href="expenses.html" class="nav-link text-white">
+        <svg class="bi me-2" width="16" height="16"><use href="#grid"></use></svg>
+        Expenses
       </a>
     </li>
     <li>
@@ -105,10 +112,6 @@
   <label>Date</label>
   <input id="sale-date" type="date">
   <button id="create-sale" class="btn btn-outline-dark btn-update" onclick="createSale()">Create Sale</button>
-  <label>Inco</label>
-  <input id="inco-total" type="number" step=".01" class="tot-price">
-  <label>Tuborg</label>
-  <input id="tuborg-total" type="number" step=".01" class="tot-price">
   <label>Revenue</label>
   <input id="revenue-total" type="number" step=".01" class="tot-price">
 </div>

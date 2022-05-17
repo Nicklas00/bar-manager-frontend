@@ -3,12 +3,8 @@ const itemsUrl = "http://localhost:8080/api/items";
 const saleUrl = "http://localhost:8080/api/sales";
 const saleLineUrl = "http://localhost:8080/api/sale-line-items"
 
-async function getItems(url) {
-  return await fetch(url).then(res => res.json());
-}
-
 async function loadItems(url){
-  let items = await getItems(url);
+  let items = await getEntities(url);
 
   let table = document.getElementById("myTable");
 
@@ -35,7 +31,7 @@ async function loadItems(url){
 }
 
 async function loadItemsSale(url){
-  let items = await getItems(url);
+  let items = await getEntities(url);
 
   let table = document.getElementById("myTable");
 
@@ -134,15 +130,11 @@ async function updateItems() {
 }
 
 async function createSale() {
-  let incoPrice = document.getElementById("inco-total").value;
-  let tuborgPrice = document.getElementById("tuborg-total").value;
   let revenue = document.getElementById("revenue-total").value;
   let date = document.getElementById("sale-date").value;
 
   // create sale object to send to db
   let sale = {};
-  sale.incoTotal = incoPrice;
-  sale.tuborgTotal = tuborgPrice;
   sale.revenue = revenue;
   sale.saleDate = date;
 
@@ -174,24 +166,3 @@ async function createSale() {
   }
 }
 
-async function postEntity(entity, url) {
-  let fetchOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(entity)
-  };
-  return await fetch(url, fetchOptions);
-}
-
-async function updateEntity(entity, url) {
-  let fetchOptions = {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(entity)
-  };
-  return await fetch(url, fetchOptions);
-}
