@@ -1,9 +1,10 @@
 const url = "http://localhost:8080/api/items/bar/";
 const itemsUrl = "http://localhost:8080/api/items";
 const saleUrl = "http://localhost:8080/api/sales";
+const saleBarUrl = "http://localhost:8080/api/sales/bar/";
 const saleLineUrl = "http://localhost:8080/api/sale-line-items"
 
-async function loadItems(url){
+async function loadStoragePage(url){
   let items = await getEntities(url);
 
   let table = document.getElementById("myTable");
@@ -30,7 +31,7 @@ async function loadItems(url){
   localStorage.setItem("items", JSON.stringify(items));
 }
 
-async function loadItemsSale(url){
+async function loadCreateSalePage(url){
   let items = await getEntities(url);
 
   let table = document.getElementById("myTable");
@@ -58,19 +59,54 @@ async function loadItemsSale(url){
   localStorage.setItem("items", JSON.stringify(items));
 }
 
+async function loadSalePage(url){
+  let sales = await getEntities(url);
+
+  let table = document.getElementById("myTable");
+
+  // Remove all elements inside table
+  let child = table.lastElementChild;
+  while (child) {
+    table.removeChild(child);
+    child = table.lastElementChild;
+  }
+
+  for (let i = 0; i < sales.length; i++){
+    let date = new Date(sales[i].saleDate);
+    let dateStr = date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear();
+    //sales[i].saleDateStr = "y =" + sales[i].saleDate.substr(0,4);
+
+    let row =
+
+      "<tr onclick='showSaleLineItems(" + sales[i].id + ")'>" +
+      "<td>" + dateStr + "</td>" +
+      "<td>" + sales[i].revenue + "</td>" +
+      "</tr>";
+
+    table.innerHTML += row;
+  }
+
+  /* localStorage.setItem("items", JSON.stringify(items)); */
+}
+
 function updateInput(input, i){
   let id = "test" + i;
   document.getElementById(id).setAttribute('value', input);
 }
 
-async function loadItems2(id) {
+async function loadStoragePageById(id) {
   localStorage.setItem("barId", JSON.stringify(id));
-  await loadItems(url + id);
+  await loadStoragePage(url + id);
 }
 
-async function loadItems3(id) {
+async function loadCreateSalePageById(id) {
   localStorage.setItem("barId", JSON.stringify(id));
-  await loadItemsSale(url + id);
+  await loadCreateSalePage(url + id);
+}
+
+async function loadSalesPageById(id) {
+  localStorage.setItem("barId", JSON.stringify(id));
+  await loadSalePage(saleBarUrl + id);
 }
 
 async function deleteById(id){
@@ -100,10 +136,10 @@ async function search(tableType) {
 
   switch (tableType) {
     case 0:
-      await loadItems(url);
+      await loadStoragePage(url);
       break;
     case 1:
-      await loadItemsSale(url);
+      await loadCreateSalePage(url);
       break;
   }
 
@@ -137,6 +173,8 @@ async function createSale() {
   let sale = {};
   sale.revenue = revenue;
   sale.saleDate = date;
+  sale.bar = {};
+  sale.bar.id = JSON.parse(localStorage.getItem("barId"));
 
   // save sale in db. returns the saved sale, which we need for the salelineitem
   let response = await postEntity(sale, saleUrl);

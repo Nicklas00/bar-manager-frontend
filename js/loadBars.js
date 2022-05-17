@@ -21,7 +21,6 @@ async function loadBars(){
 async function loadTypes (){
   const DD = document.getElementById("dropdown-type");
 
-
   await fetch(typeUrl).then(res => res.json()).then(types => {
     for (let i = 0; i < types.length; i++){
       DD.add(new Option(types[i].typeName, types[i].id))
@@ -29,6 +28,7 @@ async function loadTypes (){
 
   });
 }
+
 loadBars().then(console.log);
 loadTypes().then(console.log);
 

@@ -23,3 +23,13 @@ async function updateEntity(entity, url) {
   };
   return await fetch(url, fetchOptions);
 }
+
+function deleteEntity(url) {
+  const fetchOptions = {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  return fetch(url, fetchOptions);
+}

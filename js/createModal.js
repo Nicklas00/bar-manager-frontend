@@ -24,6 +24,13 @@ function addItem() {
   openModal();
 }
 
+function showSaleLineItems(id) {
+  setTitle("Items");
+  listEntities("http://localhost:8080/api/sale-line-items/sale/" + id).then(console.log);
+  openModal();
+
+}
+
 function setTitle(title) {
   modalTitle.textContent = title;
 }
@@ -77,6 +84,18 @@ async function createDropdownInput(url, inputName, idName) {
   form.appendChild(select);
 }
 
+async function listEntities(url) {
+  let entities = await fetchEntities(url);
+  entities.forEach(entity => {
+    const str = entity.item.itemName + ":     x" + entity.amountNo;
+    const row = document.createElement("p");
+    const text = document.createTextNode(str);
+    row.style = "text-align: left"
+    row.appendChild(text);
+    form.appendChild(row);
+  })
+}
+
 function openModal() {
   overlay.style.display = "block";
 }
@@ -101,16 +120,6 @@ function setupSubmitButton() {
   submitBtn.addEventListener("click", async () => {
     await createFormEventListener();
   });
-}
-
-function deleteEntity(url) {
-  const fetchOptions = {
-    method: "delete",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  return fetch(url, fetchOptions);
 }
 
 async function fetchEntities(url) {

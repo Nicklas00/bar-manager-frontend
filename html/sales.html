@@ -9,8 +9,8 @@
   <script src="../js/crud.js" defer></script>
   <script src="../js/loadBars.js" defer></script>
   <script src="../js/createModal.js" defer></script>
-  <script src="../js/loadSales.js" defer></script>
-
+  <script src="../js/tableLoader.js" defer></script>
+  <script src="../js/loadSalesPage.js" defer></script>
 
 
 </head>
@@ -31,7 +31,7 @@
       </a>
     </li>
     <li>
-      <a href="sales-page.html" class="nav-link text-white">
+      <a href="create-sale.html" class="nav-link text-white">
         <svg class="bi me-2" width="16" height="16"><use href="#speedometer2"></use></svg>
         Create sales
       </a>
@@ -67,7 +67,7 @@
 <div class="container-table">
   <nav class="navbar navbar-dark bg-dark">
 
-    <select class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
+    <select class="btn btn-light dropdown-toggle drop-down" onchange="loadSalesPageById(this.value)" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
     </select>
 
     <button class="logout-btn btn btn-outline-light" >logout</button>
@@ -105,7 +105,7 @@
       </form>
 
       <div class="modal-footer">
-        <button type="submit" form="modalForm" id="submit" class="btn btn-default save" data-dismiss="modal">Save</button>
+
       </div>
     </div>
   </div>
