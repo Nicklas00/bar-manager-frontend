@@ -33,3 +33,23 @@ function deleteEntity(url) {
   };
   return fetch(url, fetchOptions);
 }
+
+async function createExpense(){
+  const expenseUrl = "http://localhost:8080/api/expenses"
+  let weekDate = document.getElementById("week-date").value;
+  let incoExpense = Number(document.getElementById("inco").value);
+  let tuborgExpense = Number(document.getElementById("tuborg").value);
+  let totalExpense = incoExpense + tuborgExpense;
+  let barId = JSON.parse(localStorage.getItem("barId"));
+  let expense = {};
+
+  expense.bar = {};
+  expense.bar.id = barId;
+  expense.expenseDateStr = weekDate;
+  expense.incoTotal = incoExpense;
+  expense.tuborgTotal = tuborgExpense;
+  expense.totalExpense = totalExpense;
+
+  alert(weekDate);
+  await postEntity(expense, expenseUrl);
+}

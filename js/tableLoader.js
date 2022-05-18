@@ -2,7 +2,8 @@ const url = "http://localhost:8080/api/items/bar/";
 const itemsUrl = "http://localhost:8080/api/items";
 const saleUrl = "http://localhost:8080/api/sales";
 const saleBarUrl = "http://localhost:8080/api/sales/bar/";
-const saleLineUrl = "http://localhost:8080/api/sale-line-items"
+const saleLineUrl = "http://localhost:8080/api/sale-line-items";
+const expensesBarUrl = "http://localhost:8080/api/expenses/bar/";
 
 async function loadStoragePage(url){
   let items = await getEntities(url);
@@ -88,10 +89,40 @@ async function loadSalePage(url){
 
   /* localStorage.setItem("items", JSON.stringify(items)); */
 }
+async function loadExpensesPage(url){
+  let expenses = await getEntities(url);
+
+  let table = document.getElementById("myTable");
+
+  // Remove all elements inside table
+  let child = table.lastElementChild;
+  while (child) {
+    table.removeChild(child);
+    child = table.lastElementChild;
+  }
+
+  for (let i = 0; i < expenses.length; i++){
+    let row =
+
+      "<tr >" +
+      "<td>" + expenses[i].expenseDateStr + "</td>" +
+      "<td>" + expenses[i].incoTotal + "</td>" +
+      "<td>" + expenses[i].tuborgTotal + "</td>" +
+      "<td>" + expenses[i].totalExpense + "</td>" +
+      "</tr>";
+
+    table.innerHTML += row;
+  }
+}
 
 function updateInput(input, i){
   let id = "test" + i;
   document.getElementById(id).setAttribute('value', input);
+}
+
+async function loadExpensesPageById(id) {
+  localStorage.setItem("barId", JSON.stringify(id));
+  await loadExpensesPage(expensesBarUrl + id);
 }
 
 async function loadStoragePageById(id) {
