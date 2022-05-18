@@ -26,6 +26,7 @@ body{
    margin: auto;
    width: 80%;
    text-align: center;
+   margin-top: 5%;
  }
 .nav-test {
   position:relative;
@@ -74,10 +75,30 @@ body{
  margin: auto auto 10px;
 }
 
-.tot-price{
-
-}
-
 .pointer{
   cursor: pointer;
+}
+
+ .login-input {
+   width: 400px;
+   p1adding: 12px 20px;
+   margin: auto;
+   text-align: center;
+ }
+
+ .login-box {
+   border: solid black 2px;
+   border-radius: 15px;
+   margin: auto;
+   color: white;
+   width: 50%;
+   ;
+ }
+
+.liBtn{
+  margin-bottom: 2%;
+}
+
+.center{
+  text-align: center;
 }
