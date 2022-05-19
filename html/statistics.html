@@ -71,6 +71,9 @@
       <button class="logout-btn btn btn-outline-light" >logout</button>
       <!-- Navbar content -->
     </nav>
+    <button id="btn1">tryk mig</button>
+    <input type="date" id="date1">
+    <input type="date" id="date2">
 
     <div>
       <canvas id="myChart"></canvas>
@@ -78,37 +81,53 @@
 
     <script>
       async function setup() {
-        let barId = JSON.parse(localStorage.getItem("barId"));
+        const btn = document.getElementById("btn1");
 
-        let data = await fetch("http://localhost:8080/api/sale-line-items/statistics/bar/" + barId).then(res => res.json());
+        btn.addEventListener("click", async function(){
+          let date1 = document.getElementById("date1").value;
+          let date2 = document.getElementById("date2").value;
+          let barId = JSON.parse(localStorage.getItem("barId"));
 
-        let items = [];
-        let values = [];
-        let colors = [];
+          let data = await fetch("http://localhost:8080/api/sales/statistics/" + barId + "/" + date1 + "/" + date2).then(res => res.json());
 
-        const randomNum = () => Math.floor(Math.random() * (235 - 52 + 1) + 52);
-        const randomRGB = () => `rgb(${randomNum()}, ${randomNum()}, ${randomNum()})`;
+          let items = [];
+          let values = [];
+          let colors = [];
 
-        data.forEach(itemDTO => {
-          items.push(itemDTO.item.itemName);
-          values.push(itemDTO.sum);
-          colors.push(randomRGB());
-        });
+          const randomNum = () => Math.floor(Math.random() * (235 - 52 + 1) + 52);
+          const randomRGB = () => `rgb(${randomNum()}, ${randomNum()}, ${randomNum()})`;
 
-        let myChart = document.getElementById("myChart").getContext("2d");
-        let chart = new Chart(myChart, {
-          type: "bar",
-          data: {
-            labels: items,
-            datasets: [{
-              label: "Test",
-              data:
-              values,
-              backgroundColor: colors
-            }]
-          },
-          options: {}
-        });
+          /*data.forEach(itemDTO => {
+            items.push(itemDTO.item.itemName);
+            values.push(itemDTO.sum);
+            colors.push(randomRGB());
+          });
+
+           */
+
+          data.forEach(sale => {
+            items.push(sale.saleDate);
+            values.push(sale.revenue);
+            colors.push(randomRGB());
+          })
+
+          let myChart = document.getElementById("myChart").getContext("2d");
+          let chart = new Chart(myChart, {
+            type: "bar",
+            data: {
+              labels: items,
+              datasets: [{
+                label: "Test",
+                data:
+                values,
+                backgroundColor: colors
+              }]
+            },
+            options: {}
+          });
+            //location.reload();
+        })
+
       }
 
       setup();
