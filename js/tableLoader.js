@@ -266,3 +266,7 @@ async function createSale() {
   }
 }
 
+function insertIdToModal(id){
+  var confirmDeleteButton = document.getElementById("confirmDeletionButton");
+  confirmDeleteButton.href =  "/deleteProject/" + id;
+}
