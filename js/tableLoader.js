@@ -4,10 +4,11 @@ const saleUrl = "http://localhost:8080/api/sales";
 const saleBarUrl = "http://localhost:8080/api/sales/bar/";
 const saleLineUrl = "http://localhost:8080/api/sale-line-items";
 const expensesBarUrl = "http://localhost:8080/api/expenses/bar/";
+const setActiveUrl = "http://localhost:8080/api/items/set-active/"
+const activeItemsUrl = "http://localhost:8080/api/items/active/bar/"
 
 async function loadStoragePage(url){
   let items = await getEntities(url);
-
   let table = document.getElementById("myTable");
 
   // Remove all elements inside table
@@ -18,13 +19,21 @@ async function loadStoragePage(url){
   }
 
   for (let i = 0; i < items.length; i++){
+    let btnCol;
+
+    if(items[i].isActive) {
+      btnCol = "<td><button class='btn btn-success' id='delete-btn' onclick='updateActiveById(" + items[i].id + ")'>Active</button></td>"
+    }else{
+      btnCol = "<td><button class='btn btn-outline-secondary' id='delete-btn' onclick='updateActiveById(" + items[i].id + ")'>Active</button></td>"
+    }
     let row =
 
     "<tr>" +
       "<td>" + items[i].itemName + "</td>" +
       "<td>" + items[i].type.typeName + "</td>" +
       "<td><input value='" + items[i].amountNo + "' onchange='updateInput(this.value, "+i+")' id='test"+i+"'/></td>" +
-      "<td><button class='btn btn-outline-danger' id='delete-btn' onclick='deleteById(" + items[i].id + ")'>Delete</button></td>"
+      btnCol +
+
     "</tr>";
 
     table.innerHTML += row;
@@ -127,7 +136,7 @@ async function loadExpensesPageById(id) {
 
 async function loadStoragePageById(id) {
   localStorage.setItem("barId", JSON.stringify(id));
-  await loadStoragePage(url + id);
+  await loadStoragePage(activeItemsUrl + id);
 }
 
 async function loadCreateSalePageById(id) {
@@ -140,9 +149,31 @@ async function loadSalesPageById(id) {
   await loadSalePage(saleBarUrl + id);
 }
 
-async function deleteById(id){
-  await deleteEntity(itemsUrl + "/" + id);
+async function updateActiveById(id){
+  await updateActive(setActiveUrl + id);
   location.reload();
+}
+
+async function loadInactives(reload){
+  //localStorage.setItem("test", "1");
+  let test = JSON.parse(localStorage.getItem("test"));
+  let barId = JSON.parse(localStorage.getItem("barId"));
+
+  if(reload !== undefined){
+    if(test == "1"){
+      await loadStoragePageById(barId);
+    }else{
+      await loadStoragePage(url + barId);
+    }
+  }
+  else if(test == "1"){
+    localStorage.setItem("test", "0");
+    await loadStoragePage(url + barId);
+  }
+  else{
+    localStorage.setItem("test", "1");
+    await loadStoragePageById(barId);
+  }
 }
 
 async function search(tableType) {

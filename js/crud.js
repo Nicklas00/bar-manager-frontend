@@ -23,6 +23,15 @@ async function updateEntity(entity, url) {
   };
   return await fetch(url, fetchOptions);
 }
+async function updateActive(url) {
+  let fetchOptions = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  return await fetch(url, fetchOptions);
+}
 
 function deleteEntity(url) {
   const fetchOptions = {
