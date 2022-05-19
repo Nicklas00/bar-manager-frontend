@@ -108,3 +108,7 @@ body{
   margin-left: 2%;
   float: left;
 }
+
+.btn-active{
+  float: right;
+}
