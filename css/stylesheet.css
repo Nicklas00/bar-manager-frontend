@@ -106,9 +106,11 @@ body{
 .search{
   margin-top: 2%;
   margin-left: 2%;
+  padding: 0;
   float: left;
 }
 
 .btn-active{
+  padding: 0;
   float: right;
 }
