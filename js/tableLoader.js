@@ -141,7 +141,7 @@ async function loadStoragePageById(id) {
 
 async function loadCreateSalePageById(id) {
   localStorage.setItem("barId", JSON.stringify(id));
-  await loadCreateSalePage(url + id);
+  await loadCreateSalePage(activeItemsUrl + id);
 }
 
 async function loadSalesPageById(id) {

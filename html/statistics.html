@@ -75,7 +75,7 @@
     <input type="date" id="date1">
     <input type="date" id="date2">
 
-    <div>
+    <div id="graph-container">
       <canvas id="myChart"></canvas>
     </div>
 
@@ -102,8 +102,7 @@
             values.push(itemDTO.sum);
             colors.push(randomRGB());
           });
-
-           */
+          */
 
           data.forEach(sale => {
             items.push(sale.saleDate);
@@ -111,9 +110,23 @@
             colors.push(randomRGB());
           })
 
-          let myChart = document.getElementById("myChart").getContext("2d");
-          let chart = new Chart(myChart, {
-            type: "bar",
+          let myChart = document.getElementById("myChart");
+          let context = myChart.getContext("2d");
+          let graphContainer = document.getElementById("graph-container");
+
+          let child = graphContainer.lastElementChild;
+          while (child) {
+            graphContainer.removeChild(child);
+            child = graphContainer.lastElementChild;
+          }
+
+          let newChart = document.createElement("canvas");
+          newChart.setAttribute("id", "myChart");
+          graphContainer.appendChild(newChart);
+          let newContext = newChart.getContext("2d");
+          //context.clearRect(0, 0, myChart.width, myChart.height);
+          let chart = new Chart(newContext, {
+            type: "line",
             data: {
               labels: items,
               datasets: [{
@@ -125,7 +138,7 @@
             },
             options: {}
           });
-            //location.reload();
+
         })
 
       }

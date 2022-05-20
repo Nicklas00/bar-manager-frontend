@@ -153,6 +153,7 @@ async function postFormDataAsJson(url, formData) {
   let amountNo = formData.get("amountNo");
   let itemName = formData.get("itemName");
   let typeId   = formData.get("type");
+  let isActive = true;
 
   const item = {};
   item.itemName = itemName;
@@ -161,6 +162,7 @@ async function postFormDataAsJson(url, formData) {
   item.bar.id = barId;
   item.type = {};
   item.type.id = typeId;
+  item.isActive = isActive;
 
   formDataJsonString = JSON.stringify(item);
 
