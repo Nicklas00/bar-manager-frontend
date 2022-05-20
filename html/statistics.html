@@ -74,6 +74,18 @@
     <button id="btn1">tryk mig</button>
     <input type="date" id="date1">
     <input type="date" id="date2">
+    <select id="type-select">
+      <!--<option value="0"></option>-->
+      <option value="Sales">Sales</option>
+      <option value="Items">Items</option>
+      <option value="Expenses">Expenses</option>
+    </select>
+    <select id="chart-select">
+      <!--<option value="0"></option>-->
+      <option value="bar">Bar</option>
+      <option value="pie">Pie</option>
+      <option value="line">Line</option>
+    </select>
 
     <div id="graph-container">
       <canvas id="myChart"></canvas>
@@ -88,7 +100,11 @@
           let date2 = document.getElementById("date2").value;
           let barId = JSON.parse(localStorage.getItem("barId"));
 
-          let data = await fetch("http://localhost:8080/api/sales/statistics/" + barId + "/" + date1 + "/" + date2).then(res => res.json());
+
+          localStorage.setItem("date1", date1);
+          localStorage.setItem("date2", date2);
+
+          let data;
 
           let items = [];
           let values = [];
@@ -97,18 +113,37 @@
           const randomNum = () => Math.floor(Math.random() * (235 - 52 + 1) + 52);
           const randomRGB = () => `rgb(${randomNum()}, ${randomNum()}, ${randomNum()})`;
 
-          /*data.forEach(itemDTO => {
-            items.push(itemDTO.item.itemName);
-            values.push(itemDTO.sum);
-            colors.push(randomRGB());
-          });
-          */
+          let select = document.getElementById("type-select");
+          let type  = select.options[select.selectedIndex].value;
+          let chartSelect = document.getElementById("chart-select");
+          let chartType  = chartSelect.options[chartSelect.selectedIndex].value;
 
-          data.forEach(sale => {
-            items.push(sale.saleDate);
-            values.push(sale.revenue);
-            colors.push(randomRGB());
-          })
+          localStorage.setItem("type", type);
+         /* if(type === "0"){
+            type = JSON.parse(localStorage.getItem("type"));
+            date1 = JSON.parse(localStorage.getItem("date1"));
+            date2 = JSON.parse(localStorage.getItem("date2"));
+
+          }alert(type);
+
+          */
+          if(type === "Sales"){
+            data = await fetch("http://localhost:8080/api/sales/statistics/" + barId + "/" + date1 + "/" + date2).then(res => res.json());
+            data.forEach(sale => {
+              items.push(sale.saleDate);
+              values.push(sale.revenue);
+              colors.push(randomRGB());
+            })
+          }else if(type === "Items"){
+            data = await fetch("http://localhost:8080/api/sale-line-items/statistics/bar/" + barId + "/" + date1 + "/" + date2).then(res => res.json()) //+ "/" + date1 + "/" + date2;
+            data.forEach(itemDTO => {
+              items.push(itemDTO.item.itemName);
+              values.push(itemDTO.sum);
+              colors.push(randomRGB());
+            });
+          }else if (type == "Expenses"){
+
+          }
 
           let myChart = document.getElementById("myChart");
           let context = myChart.getContext("2d");
@@ -126,11 +161,11 @@
           let newContext = newChart.getContext("2d");
           //context.clearRect(0, 0, myChart.width, myChart.height);
           let chart = new Chart(newContext, {
-            type: "line",
+            type: chartType,
             data: {
               labels: items,
               datasets: [{
-                label: "Test",
+                label: type,
                 data:
                 values,
                 backgroundColor: colors
