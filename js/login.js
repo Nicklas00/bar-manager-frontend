@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", createFormEventListener);
 
 function createFormEventListener() {
+  alert("hej")
   let form = document.getElementById("login-form");
   form.addEventListener("submit", handleFormSubmit);
 
@@ -23,7 +24,7 @@ async function handleFormSubmit(event) {
 async function postFormDataAsJson(url, formData) {
   const plainFormData = Object.fromEntries(formData.entries());
   const formDataJsonString = JSON.stringify(plainFormData);
-
+  alert(formDataJsonString);
   const fetchOptions = {
     method: "POST",
     headers: {
@@ -40,4 +41,5 @@ async function postFormDataAsJson(url, formData) {
   } else {
     // vis tekst der fortæller at login er fejlet
   }
+
 }
