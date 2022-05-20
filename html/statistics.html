@@ -71,9 +71,11 @@
       <button class="logout-btn btn btn-outline-light" >logout</button>
       <!-- Navbar content -->
     </nav>
-    <button id="btn1">tryk mig</button>
-    <input type="date" id="date1">
-    <input type="date" id="date2">
+
+    <div class="search input-group">
+    <button id="btn1" class="btn btn-dark">Vis diagram</button>
+      <input type="date" id="date1">
+      <input type="date" id="date2">
     <select id="type-select">
       <!--<option value="0"></option>-->
       <option value="Sales">Sales</option>
@@ -86,6 +88,8 @@
       <option value="pie">Pie</option>
       <option value="line">Line</option>
     </select>
+
+    </div>
 
     <div id="graph-container">
       <canvas id="myChart"></canvas>
