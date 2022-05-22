@@ -2,7 +2,6 @@
 document.addEventListener("DOMContentLoaded", createFormEventListener);
 
 function createFormEventListener() {
-  alert("hej")
   let form = document.getElementById("register-form");
   form.addEventListener("submit", handleFormSubmit);
 

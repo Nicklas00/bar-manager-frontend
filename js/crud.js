@@ -59,6 +59,5 @@ async function createExpense(){
   expense.tuborgTotal = tuborgExpense;
   expense.totalExpense = totalExpense;
 
-  alert(weekDate);
   await postEntity(expense, expenseUrl);
 }

@@ -11,6 +11,7 @@
   <script src="../js/createModal.js" defer></script>
   <script src="../js/tableLoader.js" defer></script>
   <script src="../js/loadSalesPage.js" defer></script>
+  <script src="../js/search.js" defer></script>
 
 
 </head>
@@ -76,13 +77,10 @@
 
   <div class="search input-group" style="width: 700px">
 
-    <input id="search" name="search" type="text">
+    <input id="search" name="search" type="date">
 
-    <button onclick="search(0)" class="btn btn-dark">Search</button>
+    <button onclick="saleSearch()" class="btn btn-dark">Search</button>
 
-    <select class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdown-type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
-      <option value="0"></option>
-    </select>
   </div>
 
   <table class="table table-striped table-hover pointer">

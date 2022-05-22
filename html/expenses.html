@@ -10,6 +10,7 @@
   <script src="../js/tableLoader.js" defer></script>
   <script src="../js/crud.js" defer></script>
   <script src="../js/loadExpensesPage.js" defer></script>
+  <script src="../js/search.js" defer></script>
 
 
 </head>
@@ -67,7 +68,7 @@
 <div class="container-table">
   <nav class="navbar navbar-dark bg-dark">
 
-    <select onchange="loadStoragePageById(this.value)" class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
+    <select onchange="loadExpensesPageById(this.value)" class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
     </select>
 
     <button class="logout-btn btn btn-outline-light" >logout</button>
@@ -76,13 +77,10 @@
 
   <div class="search input-group" style="width: 700px">
 
-    <input id="search" name="search" type="text">
+    <input id="search" name="search" type="week">
 
-    <button onclick="search(0)" class="btn btn-dark">Search</button>
+    <button onclick="expenseSearch()" class="btn btn-dark">Search</button>
 
-    <select class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdown-type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
-      <option value="0"></option>
-    </select>
   </div>
 
 

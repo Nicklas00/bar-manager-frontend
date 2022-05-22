@@ -42,7 +42,8 @@ async function loadStoragePage(url){
 }
 
 async function loadCreateSalePage(url){
-  let items = await getEntities(url);
+  let it = await getEntities(url);
+  let items = it.filter(i => i.isActive === true);
 
   let table = document.getElementById("myTable");
 
@@ -176,36 +177,7 @@ async function loadInactives(reload){
   }
 }
 
-async function search(tableType) {
-  let input = document.getElementById("search")
-  let select = document.getElementById("dropdown-type");
-  let typeId  = select.options[select.selectedIndex].value;
-  let barId = JSON.parse(localStorage.getItem("barId"));
-  let url;
 
-  if (isEmpty(input.value) && typeId == 0){
-    url= "http://localhost:8080/api/items/bar/" + barId;
-  }
-  else if (!isEmpty(input.value) && typeId == 0){
-    url = "http://localhost:8080/api/items" + "?keyword=" + input.value + "&barId=" + barId
-  }
-  else if (isEmpty(input.value) && !typeId == 0){
-    url = "http://localhost:8080/api/items" + "?barId=" + barId + "&typeId=" + typeId;
-  }
-  else {
-    url = "http://localhost:8080/api/items" + "?keyword=" + input.value + "&barId=" + barId + "&typeId=" + typeId;
-  }
-
-  switch (tableType) {
-    case 0:
-      await loadStoragePage(url);
-      break;
-    case 1:
-      await loadCreateSalePage(url);
-      break;
-  }
-
-}
 
 function isEmpty (str){
   return !str.trim().length;
