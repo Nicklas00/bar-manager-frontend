@@ -117,6 +117,7 @@ async function loadSalePage(url){
       "<tr onclick='showSaleLineItems(" + sales[i].id + ")'>" +
       "<td>" + dateStr + "</td>" +
       "<td>" + sales[i].revenue + "</td>" +
+      "<td><button class='btn btn-outline-secondary' style='z-index: 0.5' id='delete-btn' onclick='deleteSale(" + sales[i].id + ")'>Delete</button></td>" +
       "</tr>";
 
     table.innerHTML += row;
@@ -124,6 +125,11 @@ async function loadSalePage(url){
 
   /* localStorage.setItem("items", JSON.stringify(items)); */
 }
+async function deleteSale(id){
+  await deleteEntity("http://localhost:8080/api/sales/" + id)
+location.reload();
+}
+
 async function loadExpensesPage(url){
   let expenses = await getEntities(url);
 
@@ -268,5 +274,7 @@ async function createSale() {
     }
     localStorage.setItem("items", JSON.stringify(items));
   }
+
+
 }
 

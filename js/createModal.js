@@ -99,9 +99,9 @@ async function createDropdownInput(url, inputName, idName) {
 async function listEntities(url) {
   let entities = await fetchEntities(url);
   entities.forEach(entity => {
-    const str = entity.item.itemName + ":     x" + entity.amountNo;
+    const str =   entity.item.itemName + ":     x" + entity.amountNo;
     const row = document.createElement("p");
-    const text = document.createTextNode(str);
+    const text = document.createTextNode( str);
     row.style = "text-align: left"
     row.appendChild(text);
     form.appendChild(row);
