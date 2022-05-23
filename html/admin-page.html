@@ -15,7 +15,7 @@
 <body>
 
 
-<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 20%; float: left; height: 100%"  >
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 20%; float: left; height: 100%; position: fixed"  >
   <a href="storage-page.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
     <svg class="bi me-2" width="40" height="32"><use href="#bootstrap"></use></svg>
     <span class="fs-4">Bar manager</span>
@@ -60,8 +60,8 @@
     </li>
   </ul>
   <hr>
-
 </div>
+
 <div class="container-table">
   <nav class="navbar navbar-dark bg-dark">
 
@@ -76,7 +76,7 @@
 
     <form class="login-box" action="http://localhost:8080/api/users/" method="post" id="register-form">
       <label for="username">Username</label><br>
-      <input class="login-input" type="text" id="username" name="username" placeholder="Username"><br>
+      <input class="login-input" type="text" id="username" name="username" placeholder="Username" required><br>
       <label for="pw1">Password</label><br>
       <input class="login-input" type="text" id="pw1" name="pw1" placeholder="Password" required><br>
       <label for="pw2">Password</label><br>
@@ -87,10 +87,7 @@
     </form>
   </div>
 
-  </div>
-
-
 </div>
-
+</div>
 </body>
 </html>
