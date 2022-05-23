@@ -19,8 +19,8 @@
 </head>
 <body>
 
-<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 20%; float: left; height: 100%"  >
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 20%; float: left; height: 100%; position: fixed;">
+  <a href="storage-page.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
     <svg class="bi me-2" width="40" height="32"><use href="#bootstrap"></use></svg>
     <span class="fs-4">Bar manager</span>
   </a>
@@ -82,9 +82,9 @@
 
     <input id="search" name="search" type="text">
 
-    <button onclick="itemSearch(0)" class="btn btn-dark">Search</button>
+    <button onclick="itemSearch(0)" class="btn btn-dark" style="z-index: 0">Search</button>
 
-      <select class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdown-type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
+      <select class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdown-type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="z-index: 0">
         <option value="0"></option>
       </select>
   </div>

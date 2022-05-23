@@ -121,3 +121,26 @@ body{
   margin-right: 2%;
 }
 
+.date{
+  color: white;
+  width: 100%;
+}
+
+.inp-fields{
+  padding: 20px;
+}
+
+.inp-child-1{
+  float:left;
+  width:20%;
+}
+
+ .inp-child-2{
+   float:left;
+   width:20%;
+ }
+
+ .inp-child-3{
+   float:left;
+   width:20%;
+ }

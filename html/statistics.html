@@ -15,8 +15,9 @@
 
 </head>
 <body>
-<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 20%; float: left; height: 100%"  >
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 20%; float: left; height: 100%; position: fixed;">
+  <a href="storage-page.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
     <svg class="bi me-2" width="40" height="32"><use href="#bootstrap"></use></svg>
     <span class="fs-4">Bar manager</span>
   </a>
@@ -62,6 +63,7 @@
   <hr>
 
 </div>
+
   <div class="container-table">
     <nav class="navbar navbar-dark bg-dark">
 
@@ -74,20 +76,36 @@
 
     <div class="search input-group">
     <button id="btn1" class="btn btn-dark">Vis diagram</button>
-      <input type="date" id="date1">
-      <input type="date" id="date2">
-    <select id="type-select">
+
+      <div>
+      <label class="date bg-dark">Start date</label> <br>
+      <input type="date" id="date1" style="text-align: center">
+      </div>
+
+      <div>
+      <label class="date bg-dark">End date</label><br>
+      <input type="date" id="date2" style="text-align: center">
+      </div>
+
+      <div>
+     <label class="date bg-dark">Data type</label><br>
+    <select id="type-select" style="width: 120px; height: 28px; text-align: center">
       <!--<option value="0"></option>-->
       <option value="Sales">Sales</option>
       <option value="Items">Items</option>
       <option value="Type">Type</option>
     </select>
-    <select id="chart-select">
+      </div>
+
+      <div>
+       <label class="date bg-dark">Diagram type</label><br>
+    <select id="chart-select" style="width: 120px; height: 28px; text-align: center">
       <!--<option value="0"></option>-->
       <option value="bar">Bar</option>
       <option value="pie">Pie</option>
       <option value="line">Line</option>
     </select>
+      </div>
 
     </div>
 
