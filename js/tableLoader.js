@@ -61,7 +61,7 @@ async function loadCreateSalePage(url){
       "<td>" + items[i].itemName + "</td>" +
       "<td>" + items[i].type.typeName + "</td>" +
       "<td>" + items[i].amountNo + "</td>" +
-      "<td><input type='number' min='0' max='"+ items[i].amountNo + "'> </td>"
+      "<td><input type='number' min='0' max='"+ items[i].amountNo + "' style='width: 50%'> </td>"
     "</tr>";
 
     table.innerHTML += row;

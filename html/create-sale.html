@@ -116,11 +116,23 @@
     </div>
   </div>
 
-  <label>Date</label>
-  <input id="sale-date" type="date">
-  <button id="create-sale" class="btn btn-outline-dark btn-update" onclick="createSale()">Create Sale</button>
-  <label>Revenue</label>
-  <input id="revenue-total" type="number" step=".01" class="tot-price">
+
+  <div class="inp-fields">
+
+    <div class="inp-child-1">
+      <label>Date of sale</label><br>
+      <input id="sale-date" type="date" style="cursor: pointer; text-align: center;">
+    </div>
+
+    <div class="inp-child-2">
+      <label>Revenue</label><br>
+      <input id="revenue-total" type="number" step=".01" >
+    </div>
+
+    <!--Position skal fixes, need help plss -->
+    <button id="create-sale" class="btn btn-outline-dark" onclick="createSale()" style="float: right;">Create Sale</button>
+
+  </div>
 </div>
 
 </body>

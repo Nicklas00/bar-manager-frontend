@@ -77,14 +77,14 @@
 
   <div class="search input-group" style="width: 700px">
 
-    <input id="search" name="search" type="week">
+    <input id="search" name="search" type="week" style="cursor: pointer; text-align: center">
 
     <button onclick="expenseSearch()" class="btn btn-dark">Search</button>
 
   </div>
 
 
-  <table class="table table-striped table-hover pointer">
+  <table class="table table-striped">
     <thead >
     <tr>
       <th scope="col">Date</th>
@@ -97,10 +97,24 @@
     </tbody>
   </table>
 
+  <div class="inp-fields">
 
-  <input type="week" id="week-date">
-  <input id="inco" step=".01" type="number">
-  <input id="tuborg" step=".01" type="number">
+  <div class="inp-child-1">
+    <label>Week of expenses</label><br>
+    <input type="week" id="week-date" style="cursor: pointer; text-align: center">
+  </div>
+
+  <div class="inp-child-2">
+    <label>Inco expense</label><br>
+    <input id="inco" step=".01" type="number">
+  </div>
+
+  <div class="inp-child-3">
+    <label>Tuborg expense</label><br>
+    <input id="tuborg" step=".01" type="number">
+  </div>
+
+</div>
   <button id="item-add-btn" class="btn btn-outline-dark btn-add" onclick="createExpense()">Create expense</button>
 </div>
 
