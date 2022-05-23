@@ -60,4 +60,5 @@ async function createExpense(){
   expense.totalExpense = totalExpense;
 
   await postEntity(expense, expenseUrl);
+  await refreshPage("Expense created");
 }

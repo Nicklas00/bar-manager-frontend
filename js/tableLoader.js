@@ -1,11 +1,12 @@
 const url = "http://localhost:8080/api/items/bar/";
 const itemsUrl = "http://localhost:8080/api/items";
-const saleUrl = "http://localhost:8080/api/sales";
+const saleUrl = "http://localhost:8080/api/sales/";
 const saleBarUrl = "http://localhost:8080/api/sales/bar/";
 const saleLineUrl = "http://localhost:8080/api/sale-line-items";
 const expensesBarUrl = "http://localhost:8080/api/expenses/bar/";
 const setActiveUrl = "http://localhost:8080/api/items/set-active/"
 const activeItemsUrl = "http://localhost:8080/api/items/active/bar/"
+
 
 async function loadStoragePage(url){
   let items = await getEntities(url);
@@ -89,9 +90,9 @@ async function loadSalePage(url){
 
     let row =
 
-      "<tr onclick='showSaleLineItems(" + sales[i].id + ")'>" +
-      "<td>" + dateStr + "</td>" +
-      "<td>" + sales[i].revenue + "</td>" +
+      "<tr>" +
+      "<td onclick='showSaleLineItems(" + sales[i].id + ")'>" + dateStr + "</td>" +
+      "<td onclick='showSaleLineItems(" + sales[i].id + ")'>" + sales[i].revenue + "</td>" +
       "</tr>";
 
     table.innerHTML += row;
@@ -177,8 +178,6 @@ async function loadInactives(reload){
   }
 }
 
-
-
 function isEmpty (str){
   return !str.trim().length;
 }
@@ -200,6 +199,7 @@ async function updateItems() {
 }
 
 async function createSale() {
+
   let revenue = document.getElementById("revenue-total").value;
   let date = document.getElementById("sale-date").value;
 
@@ -217,7 +217,7 @@ async function createSale() {
   let items = JSON.parse(localStorage.getItem("items"));
   let table = document.getElementById("myTable");
 
-  for (let i in table.rows) {
+  for (let i in table.rows -1) {
     let row = table.rows[i];
     let amount = row.cells[3].children[0].value;
 
@@ -234,7 +234,16 @@ async function createSale() {
       items[i].amountNo = items[i].amountNo - amount;
       await updateEntity(items[i], itemsUrl);
     }
-    localStorage.setItem("items", JSON.stringify(items));
   }
+  localStorage.setItem("items", JSON.stringify(items));
+  await refreshPage("sale created");
 }
+
+async function refreshPage(msg){
+  alert(msg);
+  await location.reload();
+}
+
+
+
 
