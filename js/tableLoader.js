@@ -70,6 +70,31 @@ async function loadCreateSalePage(url){
   localStorage.setItem("items", JSON.stringify(items));
 }
 
+async function loadAdminPage(url){
+  let users = await getEntities(url);
+
+  let table = document.getElementById("myTable");
+
+  // Remove all elements inside table
+  let child = table.lastElementChild;
+  while (child) {
+    table.removeChild(child);
+    child = table.lastElementChild;
+  }
+
+  for (let i = 0; i < users.length; i++){
+    let row =
+
+    "<tr>" +
+      "<td>" + users[i].id + "</td>" +
+      "<td>" + users[i].username + "</td>" +
+      "<td><button class='btn btn-danger' id='delete-btn' onclick='deleteUserById(" + users[i].id + ")'>Delete</button></td>" +
+    "</tr>";
+
+    table.innerHTML += row;
+  }
+}
+
 async function loadSalePage(url){
   let sales = await getEntities(url);
 
@@ -154,6 +179,13 @@ async function updateActiveById(id){
   await updateActive(setActiveUrl + id);
   location.reload();
 }
+
+async function deleteUserById(id){
+  await deleteEntity("http://localhost:8080/api/users/" + id);
+  location.reload();
+}
+
+
 
 async function loadInactives(reload){
   //localStorage.setItem("test", "1");

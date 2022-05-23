@@ -19,9 +19,21 @@ function addItem() {
   createInput("Amount", "", "amountNo", "number", "");
   createDropdownInput("http://localhost:8080/api/types", "Type", "type").then(console.log);
 
-  setupSubmitButton();
+  setupSubmitButton("item");
 
   openModal();
+}
+
+function createUser() {
+  setMethod("POST");
+  setTitle("Create User");
+  setFormDestination("http://localhost:8080/api/users");
+  createInput("Username", "username", "username", "text", "");
+  createInput("Password", "password", "pw1", "password", "");
+  createInput("Password", "password", "pw2", "password", "");
+  setupSubmitButton("user");
+  openModal();
+
 }
 
 function showSaleLineItems(id) {
@@ -116,9 +128,9 @@ function clearModal() {
   }
 }
 
-function setupSubmitButton() {
-  submitBtn.addEventListener("click", async () => {
-    await createFormEventListener();
+function setupSubmitButton(entity) {
+  submitBtn.addEventListener("click", async event => {
+    await createFormEventListener(event, entity);
   });
 }
 
@@ -126,11 +138,11 @@ async function fetchEntities(url) {
   return fetch(url).then(response => response.json());
 }
 
-function createFormEventListener() {
-  form.addEventListener("submit", handleFormSubmit);
+function createFormEventListener(event, entity) {
+  form.addEventListener("submit", (event) => handleFormSubmit(event, entity));
 }
 
-async function handleFormSubmit(event) {
+async function handleFormSubmit(event, entity) {
   event.preventDefault();
 
   const formEvent = event.currentTarget;
@@ -139,7 +151,16 @@ async function handleFormSubmit(event) {
   try {
     const formData = new FormData(formEvent);
 
-    await postFormDataAsJson(url, formData);
+    switch (entity) {
+      case "item": {
+        await postFormDataAsJson(url, formData);
+        break;
+      }
+      case "user": {
+        await postFormDataAsJsonUser(url, formData)
+        break;
+      }
+    }
   } catch (err) {
 
   }
@@ -182,4 +203,39 @@ async function postFormDataAsJson(url, formData) {
   } else {
     alert("error");
   }
+}
+
+async function postFormDataAsJsonUser(url, formData) {
+  const plainFormData = Object.fromEntries(formData.entries());
+  let pw1 = plainFormData.pw1;
+  let pw2 = plainFormData.pw2;
+  let userName = plainFormData.username;
+  if(userName === ""){
+    alert("Username cant be empty")
+  }
+
+  if (pw1 !== pw2) {
+    alert("Passwords did not match")
+  } else {
+    let user = {};
+    user.password = pw1;
+    user.username = userName;
+    const fetchOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user)
+    };
+
+    const response = await fetch(url, fetchOptions);
+    if(response.ok){
+      alert("User registered");
+      location.reload();
+    }else{
+      alert("Username taken");
+    }
+
+  }
+
 }
