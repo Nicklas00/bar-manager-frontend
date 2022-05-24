@@ -260,7 +260,7 @@ async function createSale() {
   let items = JSON.parse(localStorage.getItem("items"));
   let table = document.getElementById("myTable");
 
-  for (let i in table.rows -1) {
+  for (let i = 0; i < table.rows.length; i++) {
     let row = table.rows[i];
     let amount = row.cells[3].children[0].value;
 

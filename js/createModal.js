@@ -19,6 +19,7 @@ function addItem() {
   createDropdownInput("http://localhost:8080/api/types", "Type", "type").then(console.log);
 
   createFormEventListener("item");
+  showSubmitBtn();
   openModal();
 }
 
@@ -31,6 +32,7 @@ function createUser() {
   createInput("Password", "password", "pw2", "password", "");
 
   createFormEventListener("user");
+  showSubmitBtn();
   openModal();
 }
 
@@ -41,6 +43,7 @@ function createBar() {
   createInput("Bar name", "bar", "bar", "text", "");
 
   createFormEventListener("bar");
+  showSubmitBtn();
   openModal();
 }
 
@@ -51,14 +54,26 @@ function createType() {
   createInput("Type", "type", "type", "text", "");
 
   createFormEventListener("type");
+  showSubmitBtn();
   openModal();
 }
 
 function showSaleLineItems(id) {
   setTitle("Items");
   listEntities("http://localhost:8080/api/sale-line-items/sale/" + id).then(console.log);
+  hideSubmitBtn();
   openModal();
 
+}
+
+function hideSubmitBtn() {
+  let submitBtn = document.getElementById("submit");
+  submitBtn.style.display = "none";
+}
+
+function showSubmitBtn() {
+  let submitBtn = document.getElementById("submit");
+  submitBtn.style.display = "";
 }
 
 function setTitle(title) {
