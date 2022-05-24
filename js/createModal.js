@@ -8,7 +8,6 @@ let modalInputField = document.querySelector(".modal-input-field");
 let form = document.querySelector(".modal-input-field");
 
 let method = "";
-const submitBtn = document.getElementById("submit");
 const deleteButton = document.createElement("button");
 
 function addItem() {
@@ -19,8 +18,7 @@ function addItem() {
   createInput("Amount", "", "amountNo", "number", "");
   createDropdownInput("http://localhost:8080/api/types", "Type", "type").then(console.log);
 
-  setupSubmitButton("item");
-
+  createFormEventListener("item");
   openModal();
 }
 
@@ -31,9 +29,19 @@ function createUser() {
   createInput("Username", "username", "username", "text", "");
   createInput("Password", "password", "pw1", "password", "");
   createInput("Password", "password", "pw2", "password", "");
-  setupSubmitButton("user");
-  openModal();
 
+  createFormEventListener("user");
+  openModal();
+}
+
+function createBar() {
+  setMethod("POST");
+  setTitle("Create Bar");
+  setFormDestination("http://localhost:8080/api/bars");
+  createInput("Bar name", "bar", "bar", "text", "");
+
+  createFormEventListener("bar");
+  openModal();
 }
 
 function showSaleLineItems(id) {
@@ -128,22 +136,21 @@ function clearModal() {
   }
 }
 
-function setupSubmitButton(entity) {
-  submitBtn.addEventListener("click", async event => {
-    await createFormEventListener(event, entity);
-  });
-}
+
 
 async function fetchEntities(url) {
-  return fetch(url).then(response => response.json());
+  return await fetch(url).then(response => response.json());
 }
 
-function createFormEventListener(event, entity) {
-  form.addEventListener("submit", (event) => handleFormSubmit(event, entity));
+function createFormEventListener(entity) {
+  form.addEventListener("submit", async event =>
+    await handleFormSubmit(event, entity));
 }
 
 async function handleFormSubmit(event, entity) {
   event.preventDefault();
+
+  form.removeEventListener("click", event);
 
   const formEvent = event.currentTarget;
   const url = formEvent.action;
@@ -160,6 +167,10 @@ async function handleFormSubmit(event, entity) {
         await postFormDataAsJsonUser(url, formData)
         break;
       }
+      case "bar": {
+        await postFormDataAsJsonBar(url, formData);
+        break;
+      }
     }
   } catch (err) {
 
@@ -167,8 +178,6 @@ async function handleFormSubmit(event, entity) {
 }
 
 async function postFormDataAsJson(url, formData) {
-  let formDataJsonString;
-
   let select = document.getElementById("dropdownMenuButton");
   let barId  = select.options[select.selectedIndex].value;
   let amountNo = formData.get("amountNo");
@@ -185,18 +194,7 @@ async function postFormDataAsJson(url, formData) {
   item.type.id = typeId;
   item.isActive = isActive;
 
-  formDataJsonString = JSON.stringify(item);
-
-
-  const fetchOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: formDataJsonString
-  };
-
-  let res = await fetch(url, fetchOptions);
+  let res = await postEntity(item, url);
 
   if (res.ok) {
     location.reload();
@@ -206,10 +204,9 @@ async function postFormDataAsJson(url, formData) {
 }
 
 async function postFormDataAsJsonUser(url, formData) {
-  const plainFormData = Object.fromEntries(formData.entries());
-  let pw1 = plainFormData.pw1;
-  let pw2 = plainFormData.pw2;
-  let userName = plainFormData.username;
+  let pw1 = formData.get("pw1");
+  let pw2 = formData.get("pw2");
+  let userName = formData.get("username");
   if(userName === ""){
     alert("Username cant be empty")
   }
@@ -220,22 +217,27 @@ async function postFormDataAsJsonUser(url, formData) {
     let user = {};
     user.password = pw1;
     user.username = userName;
-    const fetchOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user)
-    };
-
-    const response = await fetch(url, fetchOptions);
-    if(response.ok){
+    const res = postEntity(user, url);
+    if(res.ok){
       alert("User registered");
       location.reload();
     }else{
       alert("Username taken");
     }
+  }
+}
 
+async function postFormDataAsJsonBar(url, formData) {
+  let barName = formData.get("bar");
+  let bar = {};
+  bar.barName = barName;
+
+  let res = await postEntity(bar, url);
+
+  if (res.ok) {
+    await location.reload();
+  } else {
+     alert("Bar name already taken")
   }
 
 }
