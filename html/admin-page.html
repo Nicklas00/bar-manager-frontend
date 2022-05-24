@@ -13,6 +13,7 @@
   <script src="../js/createModal.js" defer></script>
   <script src="../js/tableLoader.js" defer></script>
   <script src="../js/loadAdminPage.js" defer></script>
+  <script src="../js/checkLogin.js" defer></script>
 
 
 </head>
@@ -74,7 +75,7 @@
       <button onclick="createBar()" class="btn btn-outline-light" style="float:right;">+</button>
     </div>
 
-    <a href="index.html" class="logout-btn btn btn-outline-light">logout</a>
+    <a href="index.html" class="logout-btn btn btn-outline-light" onclick="sessionStorage.clear(); localStorage.clear();">logout</a>
     <!-- Navbar content -->
   </nav>
 
