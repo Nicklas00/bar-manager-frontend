@@ -37,7 +37,7 @@ async function postFormDataAsJson(url, formData) {
     sessionStorage.setItem("admin", true);
     window.location.href = "storage-page.html";
   } else {
-    // vis tekst der fortæller at login er fejlet
+    alert("Username or password incorrect");
   }
 
 }
