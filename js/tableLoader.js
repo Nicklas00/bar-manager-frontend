@@ -188,8 +188,13 @@ async function updateActiveById(id){
 }
 
 async function deleteUserById(id){
-  await deleteEntity("http://localhost:8080/api/users/" + id);
-  location.reload();
+  let sessionUserId = sessionStorage.getItem("userId");
+  if (sessionUserId == id) {
+    alert("Cannot delete your own user")
+  } else {
+    await deleteEntity("http://localhost:8080/api/users/" + id);
+    location.reload();
+  }
 }
 
 

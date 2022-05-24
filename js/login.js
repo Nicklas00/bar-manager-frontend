@@ -32,9 +32,10 @@ async function postFormDataAsJson(url, formData) {
   };
 
   const response = await fetch(url, fetchOptions);
+  const user = await response.json();
 
   if (response.ok) {
-    sessionStorage.setItem("admin", true);
+    sessionStorage.setItem("userId", user.id);
     window.location.href = "storage-page.html";
   } else {
     alert("Username or password incorrect");
