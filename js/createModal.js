@@ -217,7 +217,8 @@ async function postFormDataAsJsonUser(url, formData) {
     let user = {};
     user.password = pw1;
     user.username = userName;
-    const res = postEntity(user, url);
+    const res = await postEntity(user, url);
+
     if(res.ok){
       alert("User registered");
       location.reload();
