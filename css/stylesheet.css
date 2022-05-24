@@ -121,6 +121,11 @@ body{
   margin-right: 2%;
 }
 
+.canvas-container{
+  margin: 10% auto auto;
+  width: 60%;
+}
+
 
 .date{
   color: white;

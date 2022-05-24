@@ -75,7 +75,7 @@
     </nav>
 
     <div class="search input-group">
-    <button id="btn1" class="btn btn-dark">Vis diagram</button>
+    <button id="btn1" class="btn btn-dark">Show diagram</button>
 
       <div>
       <label class="date bg-dark">Start date</label> <br>
@@ -100,7 +100,6 @@
       <div>
        <label class="date bg-dark">Diagram type</label><br>
     <select id="chart-select" style="width: 120px; height: 28px; text-align: center">
-      <!--<option value="0"></option>-->
       <option value="bar">Bar</option>
       <option value="pie">Pie</option>
       <option value="line">Line</option>
@@ -109,8 +108,8 @@
 
     </div>
 
-    <div id="graph-container">
-      <canvas id="myChart"></canvas>
+    <div id="graph-container" class="canvas-container">
+      <canvas id="myChart" height="100" width="100"></canvas>
     </div>
 
     <script>
@@ -141,14 +140,7 @@
           let chartType  = chartSelect.options[chartSelect.selectedIndex].value;
 
           localStorage.setItem("type", type);
-         /* if(type === "0"){
-            type = JSON.parse(localStorage.getItem("type"));
-            date1 = JSON.parse(localStorage.getItem("date1"));
-            date2 = JSON.parse(localStorage.getItem("date2"));
 
-          }alert(type);
-
-          */
           if(type === "Sales"){
             data = await fetch("http://localhost:8080/api/sales/statistics/" + barId + "/" + date1 + "/" + date2).then(res => res.json());
             data.forEach(sale => {
@@ -157,13 +149,19 @@
               colors.push(randomRGB());
             })
           }else if(type === "Items"){
-            data = await fetch("http://localhost:8080/api/sale-line-items/statistics/bar/" + barId + "/" + date1 + "/" + date2).then(res => res.json()) //+ "/" + date1 + "/" + date2;
+            data = await fetch("http://localhost:8080/api/sale-line-items/statistics/bar/" + barId + "/" + date1 + "/" + date2).then(res => res.json()); //+ "/" + date1 + "/" + date2;
             data.forEach(itemDTO => {
               items.push(itemDTO.item.itemName);
               values.push(itemDTO.sum);
               colors.push(randomRGB());
             });
           }else if (type == "Type"){
+            data = await fetch("http://localhost:8080/api/types/statistics/bar/" + barId + "/" + id + "/" + date1 + "/" + date2).then(res => res.json());
+            data.forEach(typeD => {
+              items.push(typeD.type.id);
+              values.push(typeD.);
+              colors.push(randomRGB());
+            })
 
 
           }
@@ -182,7 +180,6 @@
           newChart.setAttribute("id", "myChart");
           graphContainer.appendChild(newChart);
           let newContext = newChart.getContext("2d");
-          //context.clearRect(0, 0, myChart.width, myChart.height);
           let chart = new Chart(newContext, {
             type: chartType,
             data: {
