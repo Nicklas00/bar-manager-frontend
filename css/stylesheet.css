@@ -62,6 +62,11 @@ body{
   margin-right: 1%;
 }
 
+.btn-box {
+  height: 38px;
+  width: 200px;
+}
+
 #overlay {
  display: none;
  position: fixed;

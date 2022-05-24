@@ -68,8 +68,10 @@
 <div class="container-table">
   <nav class="navbar navbar-dark bg-dark">
 
-    <select onchange="loadCreateSalePageById(this.value)" class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
-    </select>
+    <div class="btn-box">
+      <select onchange="loadCreateSalePageById(this.value)" style="float:left; height: 38px" class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">></select>
+      <button onclick="createBar()" class="btn btn-outline-light" style="float:right;">+</button>
+    </div>
 
     <a href="index.html" class="logout-btn btn btn-outline-light">logout</a>
     <!-- Navbar content -->

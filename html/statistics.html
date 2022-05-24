@@ -12,6 +12,7 @@
   <script src="../js/loadBars.js" defer></script>
   <script src="../js/crud.js" defer></script>
   <script src="../js/chart.js" defer></script>
+  <script src="../js/createModal.js" defer></script>
 
 </head>
 <body>
@@ -67,8 +68,10 @@
   <div class="container-table">
     <nav class="navbar navbar-dark bg-dark">
 
-      <select onchange="loadChartByBarId(this.value)" class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
-      </select>
+      <div class="btn-box">
+        <select onchange="loadChartByBarId(this.value)" style="float:left; height: 38px" class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">></select>
+        <button onclick="createBar()" class="btn btn-outline-light" style="float:right;">+</button>
+      </div>
 
       <a href="index.html" class="logout-btn btn btn-outline-light">logout</a>
       <!-- Navbar content -->
@@ -201,6 +204,22 @@
       setup();
 
     </script>
+
+    <div id="overlay">
+      <div class="modal-content" style="max-width: 600px; margin: 5% auto auto;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <form class="modal-input-field" id="modalForm" style="max-height: 400px;  margin: 5%;  overflow: auto;">
+
+        </form>
+
+        <div class="modal-footer">
+          <button type="submit" form="modalForm" id="submit" class="btn btn-default save" data-dismiss="modal">Save</button>
+        </div>
+      </div>
+    </div>
 
   </div>
 </body>

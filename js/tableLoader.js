@@ -280,8 +280,10 @@ async function createSale() {
 async function refreshPage(msg){
   alert(msg);
   await location.reload();
+}
 
-
+function setBarId(id) {
+  localStorage.setItem("barId", id);
 }
 
 
