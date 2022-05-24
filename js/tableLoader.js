@@ -118,7 +118,7 @@ async function loadSalePage(url){
       "<tr>" +
       "<td onclick='showSaleLineItems(" + sales[i].id + ")'>" + dateStr + "</td>" +
       "<td onclick='showSaleLineItems(" + sales[i].id + ")'>" + sales[i].revenue + "</td>" +
-      "<td><button class='btn btn-outline-secondary' style='z-index: 0.5' id='delete-btn' onclick='deleteSale(" + sales[i].id + ")'>Delete</button></td>" +
+      "<td><button class='btn btn-outline-danger' style='z-index: 0.5' id='delete-btn' onclick='deleteSale(" + sales[i].id + ")'>Delete</button></td>" +
       "</tr>";
 
     table.innerHTML += row;

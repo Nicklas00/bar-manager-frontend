@@ -89,7 +89,7 @@ body{
 }
 
  .login-input {
-   width: 400px;
+   width: 35%;
    p1adding: 12px 20px;
    margin: auto;
    text-align: center;
@@ -100,7 +100,7 @@ body{
    border-radius: 15px;
    margin: auto;
    color: white;
-   width: 50%;
+   width: 35%;
    ;
  }
 
@@ -124,6 +124,11 @@ body{
   display: flex;
   margin-top: 2%;
   margin-right: 2%;
+}
+
+.canvas-container{
+  margin: 10% auto auto;
+  width: 60%;
 }
 
 
