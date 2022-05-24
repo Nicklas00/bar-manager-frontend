@@ -44,6 +44,16 @@ function createBar() {
   openModal();
 }
 
+function createType() {
+  setMethod("POST");
+  setTitle("Create Type");
+  setFormDestination("http://localhost:8080/api/types");
+  createInput("Type", "type", "type", "text", "");
+
+  createFormEventListener("type");
+  openModal();
+}
+
 function showSaleLineItems(id) {
   setTitle("Items");
   listEntities("http://localhost:8080/api/sale-line-items/sale/" + id).then(console.log);
@@ -171,6 +181,10 @@ async function handleFormSubmit(event, entity) {
         await postFormDataAsJsonBar(url, formData);
         break;
       }
+      case "type": {
+        await postFormDataAsJsonType(url, formData);
+        break;
+      }
     }
 
 
@@ -242,5 +256,19 @@ async function postFormDataAsJsonBar(url, formData) {
   } else {
      alert("Bar name already taken")
   }
+}
 
+async function postFormDataAsJsonType(url, formData) {
+  let typeName = formData.get("type");
+  let type = {};
+  type.typeName = typeName;
+  alert(typeName)
+
+  let res = await postEntity(type, url);
+
+  if (res.ok) {
+    await location.reload();
+  } else {
+    alert("Type already exists")
+  }
 }

@@ -84,11 +84,13 @@
 
     <input id="search" name="search" type="text">
 
-    <button onclick="itemSearch(1)" class="btn btn-dark">Search</button>
+    <button onclick="itemSearch(1)" class="btn btn-dark" style="z-index: 0">Search</button>
 
-    <select class="btn btn-light dropdown-toggle drop-down" type="button" id="dropdown-type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
+    <select class="btn btn-light dropdown-toggle drop-down" style="z-index: 0" type="button" id="dropdown-type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">>
       <option value="0"></option>
     </select>
+
+    <button onclick="createType()" class="btn btn-outline-dark btn-add" style="margin-left:10px; z-index: 0">New Type</button>
   </div>
 
   <table class="table table-striped">
