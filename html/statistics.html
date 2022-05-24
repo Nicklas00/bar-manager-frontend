@@ -10,11 +10,11 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
 
+  <script src="../js/checkLogin.js" defer></script>
   <script src="../js/loadBars.js" defer></script>
   <script src="../js/crud.js" defer></script>
   <script src="../js/chart.js" defer></script>
   <script src="../js/createModal.js" defer></script>
-  <script src="../js/checkLogin.js" defer></script>
 
 </head>
 <body>
@@ -98,7 +98,7 @@
       <!--<option value="0"></option>-->
       <option value="Sales">Sales</option>
       <option value="Items">Items</option>
-      <option value="Type">Type</option>
+      <option value="Types">Types</option>
     </select>
       </div>
 
@@ -131,6 +131,7 @@
           localStorage.setItem("date2", date2);
 
           let data;
+          let label;
 
           let items = [];
           let values = [];
@@ -147,6 +148,7 @@
           localStorage.setItem("type", type);
 
           if(type === "Sales"){
+            label = "Earnings";
             data = await fetch("http://localhost:8080/api/sales/statistics/" + barId + "/" + date1 + "/" + date2).then(res => res.json());
             data.forEach(sale => {
               items.push(sale.saleDate);
@@ -154,23 +156,23 @@
               colors.push(randomRGB());
             })
           }else if(type === "Items"){
+            label = "Sold";
             data = await fetch("http://localhost:8080/api/sale-line-items/statistics/bar/" + barId + "/" + date1 + "/" + date2).then(res => res.json()); //+ "/" + date1 + "/" + date2;
             data.forEach(itemDTO => {
               items.push(itemDTO.item.itemName);
               values.push(itemDTO.sum);
               colors.push(randomRGB());
             });
-          }else if (type == "Type"){
-            //data = await fetch("http://localhost:8080/api/types/statistics/bar/" + barId + "/" + id + "/" + date1 + "/" + date2).then(res => res.json());
-            //data.forEach(typeD => {
-            //  items.push(typeD.id);
-            //  values.push(typeD.);
-            //  colors.push(randomRGB());
-            //})
+          }else if (type === "Types"){
+            label = "Sold";
+            data = await fetch("http://localhost:8080/api/sales/statistics/types/bar/" + barId + "/" + date1 + "/" + date2).then(res => res.json());
+            data.forEach(typeDTO => {
+              items.push(typeDTO.type.typeName);
+              values.push(typeDTO.sum);
+              colors.push(randomRGB());
+            })
           }
 
-          let myChart = document.getElementById("myChart");
-          let context = myChart.getContext("2d");
           let graphContainer = document.getElementById("graph-container");
 
           let child = graphContainer.lastElementChild;
@@ -188,7 +190,7 @@
             data: {
               labels: items,
               datasets: [{
-                label: type,
+                label: label,
                 data:
                 values,
                 backgroundColor: colors
