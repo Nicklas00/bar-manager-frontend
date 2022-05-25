@@ -11,19 +11,46 @@
 
   <script src="../js/login.js" defer></script>
 </head>
-<body>
-<h1 class="center">Bar manager</h1>
+<body class="back">
 <div class="container-login">
 
-<form class="login-box" action="http://localhost:8080/api/users/verify" method="post" id="login-form">
-<label for="username">Username</label><br>
-  <input class="login-input" type="text" id="username" name="username" placeholder="Username" required><br>
-  <label for="password">Password</label><br>
-  <input class="login-input" type="password" id="password" name="password" placeholder="Password" required><br>
-  <br>
+  <section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white shadow" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
 
-  <button type="submit" id="submit" class="liBtn btn btn-outline-dark ">Login</button>
-</form>
+              <div class="mb-md-5 mt-md-4 pb-5">
+
+                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                <p class="text-white-50 mb-5">Please enter your login and password!</p>
+
+                <form action="http://localhost:8080/api/users/verify" method="post" id="login-form">
+                <div class="form-outline form-white mb-4">
+                  <input class="form-control form-control-lg" type="text" id="username" name="username" placeholder="Username"  />
+                  <label class="form-label" for="username">Username</label>
+                </div>
+
+                <div class="form-outline form-white mb-4">
+                  <input class="form-control form-control-lg" type="password" id="password" name="password" placeholder="Password" />
+                  <label class="form-label" for="password">Password</label>
+                </div>
+
+                  <button id="submit" class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                </form>
+
+
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div>
 
 </body>

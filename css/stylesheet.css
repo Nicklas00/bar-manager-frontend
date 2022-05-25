@@ -22,22 +22,13 @@ body{
   height: 100%;
 
 }
- .container-login{
-   margin: auto;
-   width: 80%;
-   text-align: center;
-   margin-top: 5%;
- }
+
 .nav-test {
   position:relative;
 }
 
 .nav-2{
   display: inline;
-}
-
-.login-box {
-  margin-top: 10%;
 }
 
 .bar-list {
@@ -78,6 +69,13 @@ body{
  background-color: rgba(0, 0, 0, 0.5);
 }
 
+.back{
+  background-image: url("https://images.squarespace-cdn.com/content/v1/60e5e0bbc672c534b6589c39/1625697985171-R6XPDIOIHB2OOOHLTCP5/Nightlife.jpeg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
 .js-input {
  width: 100%;
  height: 25px;
@@ -87,6 +85,18 @@ body{
 .pointer{
   cursor: pointer;
 }
+
+ .container-login{
+   margin: auto;
+   width: 80%;
+   height: 100%;
+   text-align: center;
+ }
+
+ .shadow{
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   text-align: center;
+ }
 
  .login-input {
    width: 35%;
@@ -101,6 +111,7 @@ body{
    margin: auto;
    color: white;
    width: 35%;
+   background-color: #888888;
    ;
  }
 
